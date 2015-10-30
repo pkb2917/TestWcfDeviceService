@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<UsedMediaType xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <MediaSerialNumber xmlns="http://www.xerox.com/gt/100/">1234-1234-1234-1234</MediaSerialNumber>
+  <MediaExpiringDate xmlns="http://www.xerox.com/gt/100/">2013-02-13T15:27:55.3788406+05:30</MediaExpiringDate>
+  <Type xmlns="http://www.xerox.com/gt/100/">0 </Type>
+  <TypeSpecified xmlns="http://www.xerox.com/gt/100/">true</TypeSpecified>
+  <StationID xmlns="http://www.xerox.com/gt/100/">station1</StationID>
+</UsedMediaType>

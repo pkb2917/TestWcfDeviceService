@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ComponentPackageType xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <DeviceGUID xmlns="http://www.xerox.com/gt/100/">7108C7FB-06B0-43B9-9853-73040F92323D</DeviceGUID>
+  <Components xmlns="http://www.xerox.com/gt/100/">
+    <Component>
+      <SerialNumber>56789</SerialNumber>
+      <Type>FVD</Type>
+      <Manufacturer>Xerox</Manufacturer>
+      <Model>FVD</Model>
+      <Description>Desc</Description>
+      <UserName>hjhj</UserName>
+      <Action>1</Action>
+      <StatusDate>2013-02-13T16:29:28.5740793+05:30</StatusDate>
+    </Component>
+  </Components>
+</ComponentPackageType>

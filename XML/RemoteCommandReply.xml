@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RemoteCommandResultType xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <ID xmlns="http://www.xerox.com/gt/100/">7108C7FB-06B0-43B9-9853-73040F92323D</ID>
+  <InstanceID xmlns="http://www.xerox.com/gt/100/">7108C7FB-06B0-43B9-9853-73040F92323D</InstanceID>
+  <Status xmlns="http://www.xerox.com/gt/100/">1</Status>
+  <Message xmlns="http://www.xerox.com/gt/100/">Command Status</Message>
+</RemoteCommandResultType>

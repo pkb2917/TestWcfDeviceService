@@ -1,0 +1,407 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="DeviceDataExchange"
+    targetNamespace="http://www.xerox.com/gt/100/"
+    elementFormDefault="qualified" version="100"
+    xmlns:gt="http://www.xerox.com/gt/100/"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+>
+  <xs:include schemaLocation="SDICommon.xsd"/>
+  <xs:include schemaLocation="DeviceDefinitions.xsd"/>
+
+  <!-- Packages (Also defined in WebMethodsDevice & WebMethodsDeviceManager). These are left here for use in TypeDefLib (GSM/TDM). -->
+  <xs:element name="DeviceDescriptionPackage" type="gt:DescribeDevicePackageType" />
+  <xs:element name="ManifestPackage" type="gt:ManifestPackageType" />
+  <xs:element name="UpdateManifestPackage" type="gt:UpdateManifestPackageType" />
+  <xs:element name="UpdateStatusPackage" type="gt:UpdateStatusPackageType" />
+  <xs:element name="RemoteCommandPackage" type="gt:RemoteCommandInstanceType" />
+  <xs:element name="RemoteCommandResultPackage" type="gt:RemoteCommandResultType" />
+  <xs:element name="AlertPackage" type="gt:AlertPackageType" />
+  <xs:element name="UsedMediaPackage" type="gt:UsedMediaType" />
+  <xs:element name="ComponentPackage" type="gt:ComponentPackageType" />
+  <xs:element name="FaultPackage" type="gt:FaultPackageType"/>
+  <xs:element name="InputParameters" type="gt:ParametersInstanceType"/>
+
+  <!-- Containers -->
+  <xs:complexType name="FaultPackageType">
+    <xs:sequence>
+      <xs:element name="ErrorCode" type="xs:string"/>
+      <xs:element name="Message" type="xs:string"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="messages" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="DescribeDevicePackageType">
+    <xs:sequence>
+      <xs:element name="DeviceGUID" type="gt:GUID" />
+      <xs:element name="DeviceDescription" type="gt:DeviceDescriptionType" />
+      <xs:element name="DeviceStatus" type="gt:DeviceStatusesType" />
+      <xs:element name="RemoteAlerts" type="gt:RemoteAlertsInstanceType" minOccurs="0" maxOccurs="1" />
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="AlertPackageType">
+    <xs:sequence>
+      <xs:element name="DeviceGUID" type="gt:GUID" />
+      <xs:element name="RemoteAlerts" type="gt:RemoteAlertsInstanceType" />
+      <xs:element name="DeviceStatus" type="gt:DeviceStatusesType" />
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="ComponentPackageType">
+    <xs:sequence>
+      <xs:element name="DeviceGUID" type="gt:GUID" />
+      <xs:element name="Components" type="gt:ComponentsType" />
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="ManifestPackageType">
+    <xs:annotation>
+      <xs:documentation>This package is used by Device to request the latest UpdateManifest. If TargetManifest is specified then backend system will return an UpdateManifest based on difference between Device and Target Manifests.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="DeviceGUID" type="gt:GUID" />
+      <xs:element name="DeviceManifest" type="gt:DeviceManifestType" />
+      <xs:element name="TargetManifest" type="gt:DeviceManifestType" minOccurs="0" maxOccurs="1" />
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="UpdateManifestPackageType">
+    <xs:annotation>
+      <xs:documentation>This package is used in transfering an UpdateManifest to Device.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="DeviceGUID" type="gt:GUID" />
+      <xs:element name="UpdateManifest" type="gt:UpdateManifestType" />
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="UpdateStatusPackageType">
+    <xs:sequence>
+      <xs:element name="DeviceGUID" type="gt:GUID" />
+      <xs:element name="ManifestInstallationStatus" type="gt:ManifestInstallationStatusType" />
+      <xs:element name="DeviceManifest" type="gt:DeviceManifestType" minOccurs="0" maxOccurs="1" />
+    </xs:sequence>
+  </xs:complexType>
+  
+  <!-- Used Media List -->
+  <xs:complexType name="UsedMediaType">
+    <xs:sequence>
+      <xs:element name="MediaSerialNumber" type="xs:string" />
+      <xs:element name="MediaExpiringDate" type="xs:dateTime" />
+      <xs:element name="Type" type="xs:int" minOccurs="0" maxOccurs ="1">
+        <xs:annotation>
+          <xs:documentation>The type of media, i.e.: 0 = LUM, 1 = Magnetic/Senior Pass.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="StationID" type="xs:string" minOccurs="0" maxOccurs ="1" />
+    </xs:sequence>
+  </xs:complexType>
+  
+  
+  <!-- Remote Command -->
+  <xs:complexType name="RemoteCommandInstanceType">
+    <xs:sequence>
+      <xs:element name="ID" type="gt:GUID" />
+      <xs:element name="InstanceID" type="gt:GUID">
+        <xs:annotation>
+          <xs:documentation>Unique identifier of an instance of a Remote Command.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="InputParameters" type="gt:ParametersInstanceType" minOccurs="0" maxOccurs="1" />
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="ParametersInstanceType">
+    <xs:sequence>
+      <xs:element name="ParameterInstance" type="gt:ParameterInstanceType" minOccurs="1" maxOccurs="unbounded">
+        <xs:annotation>
+          <xs:documentation>Collection of Input Parameters.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="ParameterInstanceType">
+    <xs:sequence>
+      <xs:element name="Name" type="xs:string" />
+      <xs:element name="Value" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+
+  <!-- Remote Command Result -->
+  <xs:complexType name="RemoteCommandResultType">
+    <xs:sequence>
+      <xs:element name="ID" type="gt:GUID" />
+      <xs:element name="InstanceID" type="gt:GUID">
+        <xs:annotation>
+          <xs:documentation>Unique identifier of an instance of a Remote Command.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Status" type="xs:int">
+        <xs:annotation>
+          <xs:documentation>The status of an initiated Remote Command, i.e.: 0 = Received, 1 = Processing, 2 = Completed, 8 = Unknown Command ID, 9 = Failed.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Message" type="xs:string" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Additional information regarding the status of Remote Command.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <!-- Remote Alert -->
+  <xs:complexType name="RemoteAlertsInstanceType">
+    <xs:sequence>
+      <xs:element name="RemoteAlert" type="gt:RemoteAlertInstanceType" minOccurs="1" maxOccurs="unbounded" />
+    </xs:sequence>
+    <xs:attribute name="IsSnapShot" type="xs:boolean">
+      <xs:annotation>
+        <xs:documentation>True represents all active device remote alerts.</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:complexType>
+
+  <xs:complexType name="RemoteAlertInstanceType">
+    <xs:sequence>
+      <xs:element name="ID" type="gt:GUID">
+        <xs:annotation>
+          <xs:documentation>Unique identifier of a Remote Alert. This alert should have already been defined in Device Definitions.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="ComponentSerialNumber" type="xs:string" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Serial Number of a component that generated the Alert.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="ComponentDeviceType" type="xs:string" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>The type of a component that generated this Alert.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="IsAlertRemoved" type="xs:boolean">
+        <xs:annotation>
+          <xs:documentation>Describes whether the alert is on (false) or off (true). If an alert is of type Event then this status does not apply and would not be a part of the package.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="OccurredOn" type="xs:dateTime" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The Date time of a alert that occurred </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Message" type="xs:string" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Additional information regarding the Alert, i.e.: Ticket paper low.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <!-- Device Status -->
+  <xs:complexType name="DeviceStatusesType">
+    <xs:sequence>
+      <xs:element name="Status" type="xs:int">
+        <xs:annotation>
+          <xs:documentation>The status of a device based on combination of active alerts. i.e.: 0 = Unsupported, 1 = Unknown, 2 = Error, 3 = Warning, 4 = Ok.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="ServiceStatus" type="xs:int">
+        <xs:annotation>
+          <xs:documentation>Describes whether the device is currently in or out of service. i.e.: 0 = In Service, 1 = Out of Service.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="StatusDate" type="xs:dateTime">
+        <xs:annotation>
+          <xs:documentation>The timestamp of the status.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <!-- Device Description -->
+  <xs:complexType name="DeviceDescriptionType">
+    <xs:sequence>
+      <xs:element name="DeviceGUID" type="gt:GUID">
+        <xs:annotation>
+          <xs:documentation>Global Unique Identifier that identifies the device.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="LogicalDeviceID" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>Human readable unique identifier that identifies the device.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Type" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>The type of device, i.e.: Fare Vending Device.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Manufacturer" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>The manufacturer of the device, i.e.: Xerox.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Model" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>The model of the device, i.e.: FVDm.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="SerialNumber" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>The hardware identifier of the device.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="MACAddress" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>Network adapter physical identifier.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="HostName" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>The network system name of the device.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="IPAddress" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>The network address of the device.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Description" type="xs:string" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Additional information about the device.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="SoftwareVersion" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>Current software version loaded on the device.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <!-- Components -->
+  <xs:complexType name="ComponentsType">
+    <xs:sequence>
+      <xs:element name="Component" type="gt:ComponentType" minOccurs="1" maxOccurs="unbounded" />
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="ComponentType">
+    <xs:sequence>
+      <xs:element name="SerialNumber" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>The hardware identifier of the device.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Type" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>The type of device, i.e.: Printer.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Manufacturer" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>The manufacturer of the component.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Model" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>The model of the component.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Description" type="xs:string" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Additional information about the component.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="UserName" type="xs:string" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>User Name of a user that performed a maintenance action such as Remove component.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Action" type="xs:int">
+        <xs:annotation>
+          <xs:documentation>Action performed on the device such as Removing a component. i.e.: 0 = NA, 1 = Added, 2 = Removed.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="StatusDate" type="xs:dateTime">
+        <xs:annotation>
+          <xs:documentation>The timestamp of when action was performed.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <!-- Device Manifest -->
+  <xs:complexType name="DeviceManifestType">
+    <xs:sequence>
+      <xs:element name="ManifestCategory" type="gt:ManifestCategoryBaseType" minOccurs="1" maxOccurs="unbounded" />
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="UpdateManifestType">
+    <xs:sequence>
+      <xs:element name="ManifestCategory" type="gt:ManifestCategoryType" minOccurs="0" maxOccurs="unbounded" />
+      <xs:element name="TransactionalFailureMode" type="xs:int" >
+        <xs:annotation>
+          <xs:documentation>This attribute enables a device to set its Service Status accordingly when a transactional update fails. i.e.: 0 = Stay in Service, 1 = Go out of Service.</xs:documentation>
+        </xs:annotation>        
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="ManifestCategoryType">
+    <xs:complexContent>
+      <xs:extension base="gt:ManifestCategoryBaseType">
+        <xs:sequence>
+          <xs:element name="Mode" type="xs:int">
+            <xs:annotation>
+              <xs:documentation>Only applies to Update Manifest.When set as transactional the file will be installed in a transaction with rest of transactional files. i.e.: 0 = Transactional, 1 = Non-Transactional.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="FilePath" type="xs:string">
+            <xs:annotation>
+              <xs:documentation>Only applies to Update Manifest. The path within Secure FTP server to where the file is located.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="ManifestCategoryBaseType">
+    <xs:sequence>
+      <xs:element name="Name" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>The name of a manifest category.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Version" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>The version of a manifest category.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="InstalledDate" type="xs:dateTime" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The Date time of a manifest category when it installed.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="ManifestInstallationStatusType">
+    <xs:sequence>
+      <xs:element name="Status" type="xs:int">
+        <xs:annotation>
+          <xs:documentation>Status a device provides regarding Update Manifest. i.e.: 0 = Downloading, 1 = Installing, 2 = Installed, 3 = Partially Installed, 4 = Rollback, 5 = Failed to Roll Back.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Message" type="xs:string" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Additional information regarding installation.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+
+</xs:schema>

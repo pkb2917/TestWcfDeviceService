@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AlertPackageType xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <DeviceGUID xmlns="http://www.xerox.com/gt/100/">7108C7FB-06B0-43B9-9853-73040F92323D</DeviceGUID>
+  <RemoteAlerts IsSnapShot="true" xmlns="http://www.xerox.com/gt/100/">
+    <RemoteAlert>
+      <ID>7108C7FB-06B0-43B9-9853-73040F92323D</ID>
+      <ComponentSerialNumber>V45</ComponentSerialNumber>
+      <ComponentDeviceType>FVD</ComponentDeviceType>
+      <IsAlertRemoved>true</IsAlertRemoved>
+      <Message>No Paper</Message>
+    </RemoteAlert>
+  </RemoteAlerts>
+  <DeviceStatus xmlns="http://www.xerox.com/gt/100/">
+    <Status>1</Status>
+    <ServiceStatus>1</ServiceStatus>
+    <StatusDate>2013-02-13T16:48:29.7943828+05:30</StatusDate>
+  </DeviceStatus>
+</AlertPackageType>

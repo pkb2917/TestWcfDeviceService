@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="SDICommon"
+    targetNamespace="http://www.xerox.com/gt/100/"
+    elementFormDefault="qualified" version="100"
+    xmlns:gt="http://www.xerox.com/gt/100/"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+>
+  <xs:simpleType name="GUID">
+    <xs:restriction base="xs:string">
+      <xs:pattern value="([0-9a-fA-F]){8}-([0-9a-fA-F]){4}-([0-9a-fA-F]){4}-([0-9a-fA-F]){4}-([0-9a-fA-F]){12}"/>
+    </xs:restriction>
+  </xs:simpleType>
+</xs:schema>

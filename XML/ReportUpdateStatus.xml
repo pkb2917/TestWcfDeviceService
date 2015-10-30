@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<UpdateStatusPackageType xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <DeviceGUID xmlns="http://www.xerox.com/gt/100/">7108C7FB-06B0-43B9-9853-73040F92323D</DeviceGUID>
+  <ManifestInstallationStatus xmlns="http://www.xerox.com/gt/100/">
+    <Status>1</Status>
+    <Message>message</Message>
+  </ManifestInstallationStatus>
+  <DeviceManifest xmlns="http://www.xerox.com/gt/100/">
+    <ManifestCategory>
+      <Name>ManifestNmae</Name>
+      <Version>V54</Version>
+      <InstalledDate xmlns="http://www.xerox.com/gt/100/">2015-02-13T15:27:55.3788406+05:30</InstalledDate>
+    </ManifestCategory>
+  </DeviceManifest>
+</UpdateStatusPackageType>

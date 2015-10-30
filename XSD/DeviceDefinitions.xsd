@@ -1,0 +1,283 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="DeviceDefinitions"
+    targetNamespace="http://www.xerox.com/gt/100/"
+    elementFormDefault="qualified" version="100"
+    xmlns:gt="http://www.xerox.com/gt/100/"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+>
+  <xs:include schemaLocation="SDICommon.xsd"/>
+
+
+  <xs:element name="DeviceDefinition" type="gt:DeviceDefinitionType" />
+
+  <!-- following are referenced from DeviceDefinitionsDM in TypeDefLib -->
+  <xs:element name="RemoteCommands" type="gt:RemoteCommandsType"  />
+  <xs:element name="RemoteAlerts" type="gt:RemoteAlertsType" />
+  
+
+  <xs:complexType name ="DeviceDefinitionType">
+    <xs:sequence>
+      <xs:element name="Settings" type="gt:SettingsType" minOccurs="0" maxOccurs="1" />
+      <xs:element name="Categories" type="gt:CategoriesType" minOccurs="0" maxOccurs="1" />
+      <xs:element name="RemoteCommands" type="gt:RemoteCommandsType" minOccurs="0" maxOccurs="1" />
+      <xs:element name="RemoteAlerts" type="gt:RemoteAlertsType" minOccurs="0" maxOccurs="1" />
+      <xs:element name="Permissions" type="gt:PermissionsType" minOccurs="0" maxOccurs="1" />
+    </xs:sequence>
+    <xs:attribute name="Manufacturer" type="xs:string" use="required" />
+    <xs:attribute name="Model" type="xs:string" use="required" />
+    <xs:attribute name="DeviceType" type="xs:string" use="required">
+      <xs:annotation>
+        <xs:documentation>Type of device, i.e.: Fare Vending Device.</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="SoftwareVersion" type="xs:string" use="required">
+      <xs:annotation>
+        <xs:documentation>Single Software Version that is compatible with these definitions, i.e.: 1.1.31.</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="UserAuthentication" type="xs:int" default="0">
+      <xs:annotation>
+        <xs:documentation>The type of user credentials that device supports, i.e.: 0 = Not Applicable, 1 = PIN, 2 = Active Directory/Domain. PIN represents numeric username and numeric password.</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="DeviceCommunication" type="xs:int" default="0">
+      <xs:annotation>
+        <xs:documentation>Describes which protocol the device will utilize to expose its interface on, i.e.: 0 = Web Services, 1 = TCP.</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    
+  </xs:complexType>
+
+  
+  <!-- Settings -->
+  <xs:complexType name="SettingsType">
+    <xs:sequence>
+      <xs:element name="Setting" type="gt:SettingType" minOccurs="1" maxOccurs="unbounded" />
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="SettingType">
+    <xs:complexContent>
+      <xs:extension base="gt:SettingBaseType">
+        <xs:sequence>
+          <xs:element name="ID" type="gt:GUID">
+            <xs:annotation>
+              <xs:documentation>This is a globally unique identifier of the field.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="CategoryID" type="gt:GUID">
+            <xs:annotation>
+              <xs:documentation>This is a globally unique identifier of the category this field belongs to. In GSM's user interface the fields are grouped by categories.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="IsInitialDeviceSetting" type="xs:boolean">
+            <xs:annotation>
+              <xs:documentation>Initial Device Settings are only updated as part of device commissioning.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  
+  <xs:complexType name="SettingBaseType">
+    <xs:sequence>
+      <xs:element name="Name" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>The value in this field will be displayed in GSM user interface.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Description" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>Helpful text that will be displayed in GSM user interface.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="DataType" type="gt:DataTypeType">
+        <xs:annotation>
+          <xs:documentation>This field enables GSM to display correct control in its user interface.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="LocalizationData" type="gt:LocalizationDataType" minOccurs="0" maxOccurs="1" />
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="DataTypeType">
+    <xs:choice minOccurs="1" maxOccurs="1">
+      <xs:element name="Text" type="gt:TextType" />
+      <xs:element name="Boolean" type="gt:BooleanType" />
+      <xs:element name="Enumeration" type="gt:EnumerationType" />
+      <xs:element name="DateTime" type="gt:DateTimeType" />
+      <xs:element name="Integer" type="gt:IntegerType" />
+      <xs:element name="Double" type="gt:DoubleType" />
+    </xs:choice>
+  </xs:complexType>
+
+  <xs:complexType name="TextType">
+    <xs:sequence>
+      <xs:element name="DefaultValue" type="xs:string" minOccurs="0" maxOccurs="1" />
+      <xs:element name="MaximumLength" type="xs:int" minOccurs="1" maxOccurs="1" />
+      <xs:element name="RegularExpression" type="xs:string" minOccurs="0" maxOccurs="1" />
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="BooleanType">
+    <xs:sequence>
+      <xs:element name="DefaultValue" type="xs:boolean" minOccurs="0" maxOccurs="1" />
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="EnumerationType">
+    <xs:sequence>
+      <xs:element name="DefaultValue" type="xs:string" minOccurs="0" maxOccurs="1" />
+      <xs:element name="EnumerationValues" type="gt:EnumerationValuesType" minOccurs="1" maxOccurs="1" />
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="EnumerationValuesType">
+    <xs:sequence>
+      <xs:element name="Value" minOccurs="1" maxOccurs="unbounded">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="Text" type="xs:string" />
+            <xs:element name="Value" type="xs:string" />
+            <xs:element name="LocalizationData" type="gt:LocalizationDataType" minOccurs="0" maxOccurs="1" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType> 
+  
+  <xs:complexType name="DateTimeType">
+    <xs:sequence>
+      <xs:element name="DefaultValue" type="xs:dateTime" minOccurs="0" maxOccurs="1" />
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="IntegerType">
+    <xs:sequence>
+      <xs:element name="DefaultValue" type="xs:int" minOccurs="0" maxOccurs="1" />
+      <xs:element name="MinimumValue" type="xs:int" />
+      <xs:element name="MaximumValue" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="DoubleType">
+    <xs:sequence>
+      <xs:element name="DefaultValue" type="xs:double" minOccurs="0" maxOccurs="1" />
+      <xs:element name="MinimumValue" type="xs:double" />
+      <xs:element name="MaximumValue" type="xs:double" />
+    </xs:sequence>
+  </xs:complexType>
+
+
+  <!-- Remote Commands -->
+  <xs:complexType name="RemoteCommandsType">
+    <xs:sequence>
+      <xs:element name="RemoteCommand" type="gt:RemoteCommandType" minOccurs="1" maxOccurs="unbounded" />
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="RemoteCommandType">
+    <xs:sequence>
+      <xs:element name="ID" type="gt:GUID" />
+      <xs:element name="Name" type="xs:string" />
+      <xs:element name="Description" type="xs:string" />
+      <xs:element name="LocalizationData" type="gt:LocalizationDataType" minOccurs="0" maxOccurs="1" />
+      <xs:element name="InputParameters" type="gt:DefinitionParametersType" minOccurs="0" maxOccurs="1" />
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="DefinitionParametersType">
+    <xs:sequence>
+      <xs:element name="ParameterType" type="gt:SettingBaseType" minOccurs="1" maxOccurs="unbounded" />
+    </xs:sequence>
+  </xs:complexType>
+
+
+  <!-- Remote Alerts -->
+  <xs:complexType name="RemoteAlertsType">
+    <xs:sequence>
+      <xs:element name="RemoteAlert" type="gt:RemoteAlertType" minOccurs="1" maxOccurs="unbounded" />
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="RemoteAlertType">
+    <xs:sequence>
+      <xs:element name="ID" type="gt:GUID" />
+      <xs:element name="Name" type="xs:string" />
+      <xs:element name="Description" type="xs:string" />
+      <xs:element name="Type" type="xs:int" default="0">
+        <xs:annotation>
+          <xs:documentation>0 = Alarm, 1 = Event</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Severity" type="xs:int">
+        <xs:annotation>
+          <xs:documentation>0 = Info, 3 = Warning (Major), 9 = Error (Critical)</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="LocalizationData" type="gt:LocalizationDataType" minOccurs="0" maxOccurs="1" />
+    </xs:sequence>
+  </xs:complexType>
+
+
+  <!-- Device Permissions -->
+  <xs:complexType name="PermissionsType">
+    <xs:sequence>
+      <xs:element name="Permission" type="gt:PermissionType" minOccurs="1" maxOccurs="unbounded" />
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="PermissionType">
+    <xs:sequence>
+      <xs:element name="ID" type="gt:GUID" />
+      <xs:element name="Name" type="xs:string" />
+      <xs:element name="Description" type="xs:string" />
+      <xs:element name="CategoryID" type="gt:GUID" />
+      <xs:element name="LocalizationData" type="gt:LocalizationDataType" minOccurs="0" maxOccurs="1" />
+    </xs:sequence>
+  </xs:complexType>
+
+
+  <!-- Categories -->
+  <xs:complexType name="CategoriesType">
+    <xs:sequence>
+      <xs:element name="Category" type="gt:CategoryType" minOccurs="1" maxOccurs="unbounded" />
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="CategoryType">
+    <xs:sequence>
+      <xs:element name="Type" type="xs:int">
+        <xs:annotation>
+          <xs:documentation>0 = Settings Category, 1 = Permissions Category</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="ID" type="gt:GUID" />
+      <xs:element name="Name" type="xs:string" />
+      <xs:element name="Description" type="xs:string" />
+      <xs:element name="LocalizationData" type="gt:LocalizationDataType" minOccurs="0" maxOccurs="1" />
+    </xs:sequence>
+  </xs:complexType>
+
+  <!-- Common -->
+  <xs:complexType name="LocalizationDataType">
+    <xs:sequence>
+      <xs:element name="Language" minOccurs="1" maxOccurs="unbounded">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="NameText" type="xs:string" />
+            <xs:element name="DescriptionText" type="xs:string" />
+          </xs:sequence>
+          <xs:attribute name="LanguageCode" type="xs:string">
+            <xs:annotation>
+              <xs:documentation>i.e.: en-US</xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  
+  
+</xs:schema>

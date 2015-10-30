@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Content>
+  <Methods>
+    <id>1</id>
+    <Name>DescribeDevice</Name>
+  </Methods>
+  <Methods>
+    <id>2</id>
+    <Name>CheckForUpdates</Name>
+  </Methods>
+  <Methods>
+    <id>3</id>
+    <Name>ReportUpdateStatus</Name>
+  </Methods>
+  <Methods>
+    <id>4</id>
+    <Name>ReportDeviceComponentChanges</Name>
+  </Methods>
+  <Methods>
+    <id>5</id>
+    <Name>RemoteCommandReply</Name>
+  </Methods>
+  <Methods>
+    <id>6</id>
+    <Name>SendAlert</Name>
+  </Methods>
+  <Methods>
+    <id>7</id>
+    <Name>CheckMedia</Name>
+  </Methods>
+</Content>

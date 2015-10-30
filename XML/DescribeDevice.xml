@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<DescribeDevicePackageType xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <DeviceGUID xmlns="http://www.xerox.com/gt/100/">7108C7FB-06B0-43B9-9853-73040F92323D</DeviceGUID>
+  <DeviceDescription xmlns="http://www.xerox.com/gt/100/">
+    <DeviceGUID>7108C7FB-06B0-43B9-9853-73040F92323D</DeviceGUID>
+    <LogicalDeviceID>1</LogicalDeviceID>
+    <Type>FVD</Type>
+    <Manufacturer>Xerox</Manufacturer>
+    <Model>FVD</Model>
+    <SerialNumber>232323</SerialNumber>
+    <MACAddress>AAAAAAAAAAAA</MACAddress>
+    <HostName>fds</HostName>
+    <IPAddress>45.45.45.45</IPAddress>
+    <Description>tt</Description>
+    <SoftwareVersion>343434</SoftwareVersion>
+  </DeviceDescription>
+  <DeviceStatus xmlns="http://www.xerox.com/gt/100/">
+    <Status>1</Status>
+    <ServiceStatus>1</ServiceStatus>
+    <StatusDate>2014-04-13T15:07:20.1001867+05:30</StatusDate>
+  </DeviceStatus>
+  <RemoteAlerts IsSnapShot="true" xmlns="http://www.xerox.com/gt/100/">
+    <RemoteAlert>
+      <ID>7108C7FB-06B0-43B9-9853-73040F92323D</ID>
+      <ComponentSerialNumber>123123</ComponentSerialNumber>
+      <ComponentDeviceType>FVD</ComponentDeviceType>
+      <IsAlertRemoved>true</IsAlertRemoved>
+      <Message>test message</Message>
+    </RemoteAlert>
+  </RemoteAlerts>
+</DescribeDevicePackageType>
